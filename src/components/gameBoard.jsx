@@ -6,7 +6,7 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ onSelectingCell, activePlayerSymbol }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   function handleCellClick(rowIndex, cellIndex) {
@@ -18,9 +18,10 @@ export default function GameBoard() {
     });
 
     updatedBoard[rowIndex] = [...updatedBoard[rowIndex]]; // Create a new copy of the row
-    updatedBoard[rowIndex][cellIndex] = "X";
+    updatedBoard[rowIndex][cellIndex] = activePlayerSymbol;
 
     setGameBoard(updatedBoard);
+    onSelectingCell();
   }
   return (
     <ol id="game-board">
