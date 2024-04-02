@@ -246,6 +246,7 @@ ol {
   margin: 2rem auto;
   padding: 0;
   text-align: center;
+  font-size: 2em;
 }
 
 #log li {
