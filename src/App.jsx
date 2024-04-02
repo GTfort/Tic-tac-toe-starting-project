@@ -1,11 +1,20 @@
 import Player, { players } from "./components/player";
 import GameBoard from "./components/gameBoard";
-import { useState } from "react";
+import React, { useState } from "react";
+import Log from "./components/log";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
+  const [logEntries, setLogEntries] = useState([]);
   function handlePlayerChange() {
     setActivePlayer(activePlayer === "X" ? "O" : "X");
+  }
+
+  // In App.jsx
+  // Function to update the log
+  function updateLog(playerSymbol) {
+    console.log("Updating log with:", playerSymbol);
+    setLogEntries([...logEntries, playerSymbol]);
   }
   return (
     <main>
@@ -24,9 +33,10 @@ function App() {
         <GameBoard
           onSelectingCell={handlePlayerChange}
           activePlayerSymbol={activePlayer}
+          updateLog={updateLog}
         />
       </div>
-      LOG
+      <Log logEntries={logEntries} />
     </main>
   );
 }

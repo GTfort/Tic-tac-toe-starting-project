@@ -6,7 +6,11 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard({ onSelectingCell, activePlayerSymbol }) {
+export default function GameBoard({
+  onSelectingCell,
+  activePlayerSymbol,
+  updateLog,
+}) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   function handleCellClick(rowIndex, cellIndex) {
@@ -22,6 +26,7 @@ export default function GameBoard({ onSelectingCell, activePlayerSymbol }) {
 
     setGameBoard(updatedBoard);
     onSelectingCell();
+    updateLog(activePlayerSymbol);
   }
   return (
     <ol id="game-board">
@@ -30,7 +35,10 @@ export default function GameBoard({ onSelectingCell, activePlayerSymbol }) {
           <ol>
             {row.map((playerSymbol, cellIndex) => (
               <li key={cellIndex}>
-                <button onClick={() => handleCellClick(rowIndex, cellIndex)}>
+                <button
+                  onClick={() => handleCellClick(rowIndex, cellIndex)}
+                  disabled={playerSymbol !== null} // Disable the button if the cell has been clicked
+                >
                   {playerSymbol}
                 </button>
               </li>
