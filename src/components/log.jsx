@@ -1,10 +1,10 @@
-// In Log.jsx
-export default function Log({ logEntries }) {
-  console.log("Rendering log entries:", logEntries);
+export default function Log({ turns }) {
   return (
     <ol id="log">
-      {logEntries.map((entry, index) => (
-        <li key={index}>{entry}</li>
+      {turns.map((turn) => (
+        <li key={`${turn.square.row}${turn.square.col}`}>
+          {turn.player} selected {turn.square.row},{turn.square.col}
+        </li>
       ))}
     </ol>
   );
