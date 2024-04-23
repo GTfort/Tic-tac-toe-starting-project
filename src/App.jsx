@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import React, { useState } from "react";
 import Player from "./components/Player.jsx";
 import GameBoard from "./components/GameBoard.jsx";
 import Log from "./components/Log.jsx";
@@ -44,11 +43,12 @@ function deriveWinner(gameBoard, players) {
   let winner;
 
   for (const combination of winningCombinations) {
-    const [first, second, third] = combination;
-
-    const firstSquareSymbol = gameBoard[first[0]][first[1]];
-    const secondSquareSymbol = gameBoard[second[0]][second[1]];
-    const thirdSquareSymbol = gameBoard[third[0]][third[1]];
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
 
     if (
       firstSquareSymbol &&
@@ -56,7 +56,6 @@ function deriveWinner(gameBoard, players) {
       firstSquareSymbol === thirdSquareSymbol
     ) {
       winner = players[firstSquareSymbol];
-      break;
     }
   }
 
@@ -73,10 +72,16 @@ function App() {
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex) {
-    setGameTurns((prevTurns) => [
-      { square: { row: rowIndex, col: colIndex }, player: activePlayer },
-      ...prevTurns,
-    ]);
+    setGameTurns((prevTurns) => {
+      const currentPlayer = deriveActivePlayer(prevTurns);
+
+      const updatedTurns = [
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
+        ...prevTurns,
+      ];
+
+      return updatedTurns;
+    });
   }
 
   function handleRestart() {
@@ -84,10 +89,12 @@ function App() {
   }
 
   function handlePlayerNameChange(symbol, newName) {
-    setPlayers((prevPlayers) => ({
-      ...prevPlayers,
-      [symbol]: newName,
-    }));
+    setPlayers((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symbol]: newName,
+      };
+    });
   }
 
   return (
@@ -95,16 +102,16 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            initialName={PLAYERS.X}
+            initialName={players.X}
             symbol="X"
             isActive={activePlayer === "X"}
-            onChangeName={(newName) => handlePlayerNameChange("X", newName)}
+            onChangeName={handlePlayerNameChange}
           />
           <Player
-            initialName={PLAYERS.O}
+            initialName={players.O}
             symbol="O"
             isActive={activePlayer === "O"}
-            onChangeName={(newName) => handlePlayerNameChange("O", newName)}
+            onChangeName={handlePlayerNameChange}
           />
         </ol>
         {(winner || hasDraw) && (
