@@ -1,42 +1,42 @@
-export const winningCombinations = [
+export const WINNING_COMBINATIONS = [
   [
-    [0, 0],
-    [0, 1],
-    [0, 2],
-  ], // Rows
-  [
-    [1, 0],
-    [1, 1],
-    [1, 2],
+    { row: 0, column: 0 },
+    { row: 0, column: 1 },
+    { row: 0, column: 2 },
   ],
   [
-    [2, 0],
-    [2, 1],
-    [2, 2],
+    { row: 1, column: 0 },
+    { row: 1, column: 1 },
+    { row: 1, column: 2 },
   ],
   [
-    [0, 0],
-    [1, 0],
-    [2, 0],
-  ], // Columns
-  [
-    [0, 1],
-    [1, 1],
-    [2, 1],
+    { row: 2, column: 0 },
+    { row: 2, column: 1 },
+    { row: 2, column: 2 },
   ],
   [
-    [0, 2],
-    [1, 2],
-    [2, 2],
+    { row: 0, column: 0 },
+    { row: 1, column: 0 },
+    { row: 2, column: 0 },
   ],
   [
-    [0, 0],
-    [1, 1],
-    [2, 2],
-  ], // Diagonals
+    { row: 0, column: 1 },
+    { row: 1, column: 1 },
+    { row: 2, column: 1 },
+  ],
   [
-    [0, 2],
-    [1, 1],
-    [2, 0],
+    { row: 0, column: 2 },
+    { row: 1, column: 2 },
+    { row: 2, column: 2 },
+  ],
+  [
+    { row: 0, column: 0 },
+    { row: 1, column: 1 },
+    { row: 2, column: 2 },
+  ],
+  [
+    { row: 0, column: 2 },
+    { row: 1, column: 1 },
+    { row: 2, column: 0 },
   ],
 ];

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Player from "./components/Player.jsx";
+import Player from "./components/player.jsx";
 import GameBoard from "./components/GameBoard.jsx";
 import Log from "./components/Log.jsx";
 import GameOver from "./components/WinnerMessage.jsx";
-import { winningCombinations } from "./components/winningCombination.js";
+import { WINNING_COMBINATIONS } from "./components/winningCombination.js";
 
 const PLAYERS = {
   X: "Player 1",
@@ -42,7 +42,7 @@ function deriveGameBoard(gameTurns) {
 function deriveWinner(gameBoard, players) {
   let winner;
 
-  for (const combination of winningCombinations) {
+  for (const combination of WINNING_COMBINATIONS) {
     const firstSquareSymbol =
       gameBoard[combination[0].row][combination[0].column];
     const secondSquareSymbol =
@@ -102,20 +102,24 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            initialName={players.X}
+            initialName={PLAYERS.X}
             symbol="X"
             isActive={activePlayer === "X"}
             onChangeName={handlePlayerNameChange}
           />
           <Player
-            initialName={players.O}
+            initialName={PLAYERS.O}
             symbol="O"
             isActive={activePlayer === "O"}
             onChangeName={handlePlayerNameChange}
           />
         </ol>
         {(winner || hasDraw) && (
-          <GameOver winner={winner} onRestart={handleRestart} />
+          <GameOver
+            winner={winner}
+            playerName={winner}
+            onRestart={handleRestart}
+          />
         )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
