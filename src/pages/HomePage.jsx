@@ -3,13 +3,6 @@ import { Link } from "react-router-dom";
 // import HumanVsHuman from "../components/HVH";
 
 const HomePage = () => {
-  useEffect(() => {
-    document.body.classList.add("no-scroll");
-
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, []);
   return (
     <div className="home-page">
       <h1>Welcome to the game</h1>
@@ -19,7 +12,7 @@ const HomePage = () => {
       </Link>
       <br />
       <Link className="home-page-link" to="/hvh">
-        Play Against A human{" "}
+        Play Against A human
       </Link>
     </div>
   );
